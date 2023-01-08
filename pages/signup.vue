@@ -142,7 +142,7 @@ watch(password, (newValue) => {
 async function signUp () {
   let processServerResponse = (data) => {
     if (data.success) {
-      navigateTo('/')
+      navigateTo('/login')
     } else {
       alert('An error occured while signing you up. Please try again.')
     }

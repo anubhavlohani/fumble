@@ -107,7 +107,7 @@ async function login () {
   let processServerResponse = (data) => {
     if (data.access_token) {
       localStorage.setItem('access_token', data.access_token)
-      navigateTo('/')
+      navigateTo('/profile')
     } else {
       alert(data.detail)
     }
