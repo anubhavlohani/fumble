@@ -106,12 +106,13 @@ watch(password, (newValue) => {
 })
 
 async function login () {
-  let processServerResponse = (data) => {
-    if (data.access_token) {
-      localStorage.setItem('access_token', data.access_token)
+  let processServerResponse = async (res) => {
+    const resData = await res.json()
+    if (res.ok) {
+      localStorage.setItem('access_token', resData.access_token)
       navigateTo('/profile')
     } else {
-      alert(data.detail)
+      alert(resData.detail)
     }
   }
   
@@ -121,7 +122,7 @@ async function login () {
   fetch(`${apiURL}/login`, {
     method: 'POST',
     body: userData
-  }).then(res => res.json()).then(data => processServerResponse(data)).catch(error => alert(error))
+  }).then(res => processServerResponse(res)).catch(error => alert(error))
 }
 </script>
 

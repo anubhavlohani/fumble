@@ -142,31 +142,28 @@ watch(password, (newValue) => {
 })
 
 async function signUp () {
-  let processServerResponse = (data) => {
-    if (data.success) {
+  let processServerResponse = async (res) => {
+    if (res.ok) {
       navigateTo('/login')
     } else {
-      alert('An error occured while signing you up. Please try again.')
+      const resData = await res.json()
+      alert(resData.detail)
     }
   }
-  const usernameAvailable = await fetch(`${apiURL}/get-user?username=${username.value}`).then(res => res.json()).then(data => !data.found).catch(err => alert(err))
-  if (usernameAvailable) {
-    const userData = {
-      name: name.value,
-      username: username.value,
-      email: email.value,
-      password: password.value
-    }
-    fetch(`${apiURL}/signup`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(userData),
-        }).then(res => res.json()).then(data => processServerResponse(data)).catch(error => alert(error));
-  } else {
-    alert('A user with this username already exists. Login instead')
+  
+  const userData = {
+    name: name.value,
+    username: username.value,
+    email: email.value,
+    password: password.value
   }
+  fetch(`${apiURL}/signup`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(userData),
+  }).then(res => processServerResponse(res)).catch(error => alert(error))
 }
 </script>
 

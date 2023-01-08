@@ -45,11 +45,12 @@ function addImage (event) {
 }
 
 function uploadFiles () {
-  let processServerResponse = (res) => {
+  let processServerResponse = async (res) => {
     if (res.ok) {
       alert('File uploaded successfully.')
     } else {
-      alert(res.statusText)
+      const resData = await res.json()
+      alert(resData.detail)
       navigateTo('/login')
     }
   } 
