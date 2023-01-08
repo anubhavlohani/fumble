@@ -52,6 +52,8 @@
 <script setup>
 import { ref, watch } from 'vue'
 
+const { apiURL } = useRuntimeConfig()
+
 const name = ref('')
 const username = ref('')
 const email = ref('')
@@ -147,7 +149,7 @@ async function signUp () {
       alert('An error occured while signing you up. Please try again.')
     }
   }
-  const usernameAvailable = await fetch(`http://localhost:8000/get-user?username=${username.value}`).then(res => res.json()).then(data => !data.found).catch(err => alert(err))
+  const usernameAvailable = await fetch(`${apiURL}/get-user?username=${username.value}`).then(res => res.json()).then(data => !data.found).catch(err => alert(err))
   if (usernameAvailable) {
     const userData = {
       name: name.value,
@@ -155,7 +157,7 @@ async function signUp () {
       email: email.value,
       password: password.value
     }
-    fetch('http://localhost:8000/signup', {
+    fetch(`${apiURL}/signup`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

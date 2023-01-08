@@ -13,6 +13,8 @@
 </template>
 
 <script setup>
+const { apiURL } = useRuntimeConfig()
+
 // check if token is valid
 onMounted(() => {
   let processServerResponse = (res) => {
@@ -26,7 +28,7 @@ onMounted(() => {
     alert('Session expired, please login again.')
     navigateTo('/login')
   }
-  fetch('http://localhost:8000/verify-token', {
+  fetch(`${apiURL}/verify-token`, {
     method: 'GET',
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('access_token')}`,

@@ -39,6 +39,8 @@
 <script setup>
 import { ref, watch } from 'vue'
 
+const { apiURL } = useRuntimeConfig()
+
 const username = ref('')
 const password = ref('')
 
@@ -116,7 +118,7 @@ async function login () {
   let userData = new FormData()
   userData.append('username', username.value)
   userData.append('password', password.value)
-  fetch('http://localhost:8000/login', {
+  fetch(`${apiURL}/login`, {
     method: 'POST',
     body: userData
   }).then(res => res.json()).then(data => processServerResponse(data)).catch(error => alert(error))
