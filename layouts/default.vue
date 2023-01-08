@@ -6,8 +6,10 @@
         <li><NuxtLink to="/">Home</NuxtLink></li>
         <li><NuxtLink to="/signup">SignUp</NuxtLink></li>
         <li><NuxtLink to="/login">Login</NuxtLink></li>
+        <li><NuxtLink to="/profile">Profile</NuxtLink></li>
       </ul>
     </header>
+    
     <slot />
   </div>
 </template>
