@@ -148,7 +148,6 @@ async function signUp () {
     }
   }
   const usernameAvailable = await fetch(`http://localhost:8000/get-user?username=${username.value}`).then(res => res.json()).then(data => !data.found).catch(err => alert(err))
-  console.log(usernameAvailable);
   if (usernameAvailable) {
     const userData = {
       name: name.value,
