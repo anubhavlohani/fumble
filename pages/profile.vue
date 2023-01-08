@@ -13,7 +13,30 @@
 </template>
 
 <script setup>
+// check if token is valid
+onMounted(() => {
+  let processServerResponse = (res) => {
+    if (!res.ok) {
+      alert(res.statusText)
+      navigateTo('/login')
+    }
+  }
+
+  if (localStorage.getItem('access_token') === null) {
+    alert('Session expired, please login again.')
+    navigateTo('/login')
+  }
+  fetch('http://localhost:8000/verify-token', {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+    }
+  }).then(res => processServerResponse(res)).catch(error => alert(error))
+})
+
+
 const image = ref('')
+
 
 function addImage (event) {
   image.value = event.target.files[0]
@@ -21,7 +44,7 @@ function addImage (event) {
 
 function uploadFiles () {
   let processServerResponse = (res) => {
-    if (res.status === 200) {
+    if (res.ok) {
       alert('File uploaded successfully.')
     } else {
       alert(res.statusText)
@@ -32,7 +55,7 @@ function uploadFiles () {
   const formData = new FormData()
   formData.append('image', image.value)
   const access_token = localStorage.getItem('access_token')
-  fetch('http://localhost:8000/uploadFile', {
+  fetch('http://localhost:8000/file-upload', {
     method: 'POST',
     body: formData,
     headers: {
