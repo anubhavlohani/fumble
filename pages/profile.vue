@@ -1,14 +1,29 @@
 <template>
   <div class="mx-auto w-full max-w-xs rounded-lg bg-rose-400 text-white mt-16 py-4">
-    <form class="px-4" @submit.prevent="uploadFiles()">
+    <div class="text-center">
+      <h1 class="my-6 text-4xl">
+        Add Song
+      </h1>
+    </div>
+    <form class="text-xl px-4" @submit.prevent="addSong()">
       <div>
-        <h1 class="text-center text-2xl mb-1">Upload Meme </h1>
-        <input class="py-2 mb-1" @change="addImage( $event )" type="file" accept="image/png, image/jpeg">
+        <label class="block text-left mb-2" for="name">Song name:</label>
+        <div class="flex flex-row">
+          <input v-model="query" class="shadow appearance-none border rounded w-full mb-4 mr-1 py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-rose-100" required>
+          <button @click.prevent="searchSpotify()" type="submit" class="shadow appearance-none text-center text-base mb-4 ml-1 py-1 px-2 rounded bg-rose-600 hover:bg-rose-700 active:bg-rose-800">
+            🔎
+          </button>    
+        </div>
       </div>
       <button type="submit" class="block mx-auto text-center text-lg py-1 px-2 rounded bg-rose-600 hover:bg-rose-700 active:bg-rose-800">
-        Upload
+        Add
       </button>
     </form>
+    <ul v-if="searchResults.length > 0">
+      <li v-for="track in searchResults" :key="track">
+        {{ track.name }}
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -37,34 +52,39 @@ onMounted(() => {
 })
 
 
-const image = ref('')
+const query = ref('')
+const searchResults = ref([])
 
 
-function addImage (event) {
-  image.value = event.target.files[0]
-}
+watch(query, (newValue) => {
+  if (newValue.trim() === '') {
+    query.value = ''
+  } else {
+    query.value = newValue.trimStart()
+  }
+})
 
-function uploadFiles () {
+function searchSpotify() {
   let processServerResponse = async (res) => {
+    const resData = await res.json()
     if (res.ok) {
-      alert('File uploaded successfully.')
+      searchResults.value = resData.results
     } else {
-      const resData = await res.json()
       alert(resData.detail)
-      navigateTo('/login')
     }
-  } 
-  
-  const formData = new FormData()
-  formData.append('image', image.value)
-  const access_token = localStorage.getItem('access_token')
-  fetch('http://localhost:8000/file-upload', {
-    method: 'POST',
-    body: formData,
+  }
+
+  let url = `${apiURL}/search-spotify?q=${query.value}`
+  fetch(url, {
+    method: 'GET',
     headers: {
-      'Authorization': `Bearer ${access_token}`,
+      'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
     }
   }).then(res => processServerResponse(res)).catch(error => alert(error))
+}
+
+function addSong() {
+  return null
 }
 </script>
 
