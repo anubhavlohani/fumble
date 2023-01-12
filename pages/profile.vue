@@ -6,24 +6,18 @@
       </h1>
     </div>
     <form class="text-xl px-4" @submit.prevent="addSong()">
-      <div>
-        <label class="block text-left mb-2" for="name">Song name:</label>
-        <div class="flex flex-row">
-          <input v-model="query" class="shadow appearance-none border rounded w-full mb-4 mr-1 py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-rose-100" required>
-          <button @click.prevent="searchSpotify()" type="submit" class="shadow appearance-none text-center text-base mb-4 ml-1 py-1 px-2 rounded bg-rose-600 hover:bg-rose-700 active:bg-rose-800">
-            🔎
-          </button>    
-        </div>
+      <label class="block text-left mb-2" for="name">Song name:</label>
+      <div class="flex flex-row">
+        <input v-model="query" class="w-full py-1 px-3 shadow appearance-none border rounded-tl text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-rose-100" required>
+        <button @click.prevent="searchSpotify()" type="submit" class="py-1 px-2 shadow appearance-none text-center text-base rounded-tr bg-rose-100 hover:bg-rose-700 active:bg-rose-800">
+          🔎
+        </button>
       </div>
-      <button type="submit" class="block mx-auto text-center text-lg py-1 px-2 rounded bg-rose-600 hover:bg-rose-700 active:bg-rose-800">
+      <SearchResults :searchResults="searchResults" @handleSelection="updateSelectedTrack"/>
+      <button type="submit" class="block py-1 px-2 mt-4 mx-auto text-center text-lg rounded bg-rose-600 hover:bg-rose-700 active:bg-rose-800">
         Add
       </button>
     </form>
-    <ul v-if="searchResults.length > 0">
-      <li v-for="track in searchResults" :key="track">
-        {{ track.name }}
-      </li>
-    </ul>
   </div>
 </template>
 
@@ -54,6 +48,7 @@ onMounted(() => {
 
 const query = ref('')
 const searchResults = ref([])
+const selectedTrack = ref(null)
 
 
 watch(query, (newValue) => {
@@ -64,7 +59,7 @@ watch(query, (newValue) => {
   }
 })
 
-function searchSpotify() {
+function searchSpotify () {
   let processServerResponse = async (res) => {
     const resData = await res.json()
     if (res.ok) {
@@ -83,8 +78,28 @@ function searchSpotify() {
   }).then(res => processServerResponse(res)).catch(error => alert(error))
 }
 
-function addSong() {
-  return null
+function updateSelectedTrack (track) {
+  query.value = track.name
+  selectedTrack.value = track
+}
+
+function addSong () {
+  let processServerResponse = async (res) => {
+    const resData = await res.json()
+    if (res.ok) {
+      navigateTo('/')
+    } else {
+      alert(resData.detail)
+    }
+  }
+
+  let url = `${apiURL}/search-spotify?q=${query.value}`
+  fetch(url, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+    }
+  }).then(res => processServerResponse(res)).catch(error => alert(error))
 }
 </script>
 
