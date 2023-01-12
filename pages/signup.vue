@@ -1,51 +1,49 @@
 <template>
-  <div class="mx-auto w-full max-w-xs rounded-lg bg-rose-400 text-white mt-16 py-4">
+  <div class="mt-16 py-4 mx-auto w-full max-w-xs rounded-lg border-2 shadow-lg">
     <div class="text-center">
       <h1 class="my-6 text-4xl">
         Sign-Up
       </h1>
     </div>
-    <div class="my-4">
-      <form class="text-xl px-4" @submit.prevent="signUp()">
-        <div>
-          <label class="block text-left mb-2" for="name">Name:</label>
-          <input v-model="name" class="shadow appearance-none border rounded w-full mb-4 py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-rose-100" required>
-          <ul v-if="nameErrors.length > 0">
-            <li v-for="error in nameErrors" :key="error" class="text-base text-gray-700">
-              {{ error }}
-            </li>
-          </ul>
-        </div>
-        <div>
-          <label class="block text-left mb-2" for="username">Username:</label>
-          <input v-model="username" class="shadow appearance-none border rounded w-full mb-4 py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-rose-100" required>
-          <ul v-if="usernameErrors.length > 0">
-            <li v-for="error in usernameErrors" :key="error" class="text-base text-gray-700">
-              {{ error }}
-            </li>
-          </ul>
-        </div>
-        <div>
-          <label class="block text-left mb-2" for="email">Email:</label>
-          <input v-model="email" type="email" class="shadow appearance-none border rounded w-full mb-4 py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-rose-100" required>
-        </div>
-        <div>
-          <label class="block text-left mb-2" for="password">Password:</label>
-          <input v-model="password" type="password" class="shadow appearance-none border rounded w-full mb-4 py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-rose-100" required>
-          <ul v-if="passwordErrors.length > 0">
-            <li v-for="error in passwordErrors" :key="error" class="text-base text-gray-700">
-              {{ error }}
-            </li>
-          </ul>
-        </div>
-        <button type="submit" class="text-center text-lg py-1 px-2 rounded bg-rose-600 hover:bg-rose-700 active:bg-rose-800">
-          Sign Up
-        </button>
-        <p v-if="nameErrors.length > 0 || usernameErrors.length > 0 || passwordErrors.length > 0">
-          Invalid Input
-        </p>
-      </form>
-    </div>
+    <form class="text-xl px-4" @submit.prevent="signUp()">
+      <div>
+        <label class="block text-left mb-2" for="name">Name:</label>
+        <input v-model="name" class="shadow appearance-none border rounded w-full mb-4 py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+        <ul v-if="nameErrors.length > 0">
+          <li v-for="error in nameErrors" :key="error" class="text-base text-gray-700">
+            {{ error }}
+          </li>
+        </ul>
+      </div>
+      <div>
+        <label class="block text-left mb-2" for="username">Username:</label>
+        <input v-model="username" class="shadow appearance-none border rounded w-full mb-4 py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+        <ul v-if="usernameErrors.length > 0">
+          <li v-for="error in usernameErrors" :key="error" class="text-base text-gray-700">
+            {{ error }}
+          </li>
+        </ul>
+      </div>
+      <div>
+        <label class="block text-left mb-2" for="email">Email:</label>
+        <input v-model="email" type="email" class="shadow appearance-none border rounded w-full mb-4 py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+      </div>
+      <div>
+        <label class="block text-left mb-2" for="password">Password:</label>
+        <input v-model="password" type="password" class="shadow appearance-none border rounded w-full mb-4 py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+        <ul v-if="passwordErrors.length > 0">
+          <li v-for="error in passwordErrors" :key="error" class="text-base text-gray-700">
+            {{ error }}
+          </li>
+        </ul>
+      </div>
+      <button type="submit" class="block mx-auto py-2 px-4 text-center text-lg rounded text-white bg-black hover:bg-gray-700 active:bg-gray-800">
+        Sign Up
+      </button>
+      <p v-if="nameErrors.length > 0 || usernameErrors.length > 0 || passwordErrors.length > 0">
+        Invalid Input
+      </p>
+    </form>
   </div>
 </template>
 
