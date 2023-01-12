@@ -2,20 +2,22 @@
   <div class="mx-auto w-full max-w-xs rounded-lg bg-rose-400 text-white mt-16 py-4">
     <div class="text-center">
       <h1 class="my-6 text-4xl">
-        Add Song
+        Create Story
       </h1>
     </div>
-    <form class="text-xl px-4" @submit.prevent="addSong()">
-      <label class="block text-left mb-2" for="name">Song name:</label>
+    <form class="text-xl px-4" @submit.prevent="createStory">
+      <label class="block mb-1 text-left" for="name">Search song:</label>
       <div class="flex flex-row">
-        <input v-model="query" class="w-full py-1 px-3 shadow appearance-none border rounded-tl text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-rose-100" required>
-        <button @click.prevent="searchSpotify()" type="submit" class="py-1 px-2 shadow appearance-none text-center text-base rounded-tr bg-rose-100 hover:bg-rose-700 active:bg-rose-800">
+        <input v-model="query" :class="{ 'rounded-bl': searchResults.length === 0 }" class="w-full py-1 px-3 shadow appearance-none border rounded-tl text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-rose-100" placeholder="Pray for me" required>
+        <button @click.prevent="searchSpotify" type="submit" :class="{ 'rounded-br': searchResults.length === 0 }" class="py-1 px-2 shadow appearance-none text-center text-base rounded-tr bg-rose-100 hover:bg-rose-700 active:bg-rose-800">
           🔎
         </button>
       </div>
       <SearchResults :searchResults="searchResults" @handleSelection="updateSelectedTrack"/>
+      <label class="block mt-4 mb-1 text-left" for="caption">Caption:</label>
+      <input v-model="caption" class="w-full py-1 px-3 shadow appearance-none border rounded text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-rose-100" placeholder="Add some caption here">
       <button type="submit" class="block py-1 px-2 mt-4 mx-auto text-center text-lg rounded bg-rose-600 hover:bg-rose-700 active:bg-rose-800">
-        Add
+        Create
       </button>
     </form>
   </div>
@@ -47,6 +49,7 @@ onMounted(() => {
 
 
 const query = ref('')
+const caption = ref('')
 const searchResults = ref([])
 const selectedTrack = ref(null)
 
@@ -83,25 +86,36 @@ function updateSelectedTrack (track) {
   selectedTrack.value = track
 }
 
-function addSong () {
+function createStory () {
   let processServerResponse = async (res) => {
     const resData = await res.json()
     if (res.ok) {
-      navigateTo('/')
+      alert('Successfully created your story')
+      navigateTo('/profile')
     } else {
       alert(resData.detail)
     }
   }
 
-  let url = `${apiURL}/search-spotify?q=${query.value}`
-  fetch(url, {
-    method: 'GET',
+  const storyData = {
+    track_id: selectedTrack.value.id,
+    caption: caption.value
+  }
+  fetch(`${apiURL}/create-story`, {
+    method: 'POST',
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
-    }
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(storyData)
   }).then(res => processServerResponse(res)).catch(error => alert(error))
 }
 </script>
 
 <style scoped>
+::placeholder {
+  font-style: italic;
+  color: #9ca3af;
+  font-size: 0.85em;
+}
 </style>
