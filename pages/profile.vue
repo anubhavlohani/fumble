@@ -91,7 +91,7 @@ function createStory () {
     const resData = await res.json()
     if (res.ok) {
       alert('Successfully created your story')
-      navigateTo('/profile')
+      navigateTo('/')
     } else {
       alert(resData.detail)
     }
