@@ -1,22 +1,22 @@
 <template>
-  <div class="mx-auto w-full max-w-xs rounded-lg bg-rose-400 text-white mt-16 py-4">
+  <div class="mt-16 py-4 mx-auto w-full max-w-xs border-2 rounded-lg shadow-lg">
     <div class="text-center">
       <h1 class="my-6 text-4xl">
         Create Story
       </h1>
     </div>
-    <form class="text-xl px-4" @submit.prevent="createStory">
+    <form class="px-4 text-xl" @submit.prevent="createStory">
       <label class="block mb-1 text-left" for="name">Search song:</label>
       <div class="flex flex-row">
-        <input v-model="query" :class="{ 'rounded-bl': searchResults.length === 0 }" class="w-full py-1 px-3 shadow appearance-none border rounded-tl text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-rose-100" placeholder="Pray for me" required>
-        <button @click.prevent="searchSpotify" type="submit" :class="{ 'rounded-br': searchResults.length === 0 }" class="py-1 px-2 shadow appearance-none text-center text-base rounded-tr bg-rose-100 hover:bg-rose-700 active:bg-rose-800">
+        <input v-model="query" :class="{ 'rounded-bl': searchResults.length === 0 }" class="w-full py-1 px-3 shadow appearance-none border rounded-tl text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Pray for me" required>
+        <button @click.prevent="searchSpotify" type="submit" :class="{ 'rounded-br': searchResults.length === 0 }" class="py-1 px-2 shadow appearance-none text-center text-base rounded-tr hover:bg-rose-700 active:bg-rose-800">
           🔎
         </button>
       </div>
       <SearchResults :searchResults="searchResults" @handleSelection="updateSelectedTrack"/>
       <label class="block mt-4 mb-1 text-left" for="caption">Caption:</label>
-      <input v-model="caption" class="w-full py-1 px-3 shadow appearance-none border rounded text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-rose-100" placeholder="Add some caption here">
-      <button type="submit" class="block py-1 px-2 mt-4 mx-auto text-center text-lg rounded bg-rose-600 hover:bg-rose-700 active:bg-rose-800">
+      <input v-model="caption" class="w-full py-1 px-3 shadow appearance-none border rounded text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Add some caption here">
+      <button type="submit" class="block mx-auto mt-4 py-2 px-4 text-center text-lg rounded text-white bg-black hover:bg-gray-700 active:bg-gray-800">
         Create
       </button>
     </form>
