@@ -1,12 +1,12 @@
 <template>
-  <div class="h-screen bg-rose-100">
+  <div>
     <header>
-      <ul class="flex flex-row space-x-5 items-center px-5 h-16 w-screen text-xl text-white bg-rose-500">
+      <ul class="px-5 h-16 w-screen flex flex-row space-x-5 items-center text-xl text-white shadow-xl bg-blue-600">
         <li class="text-3xl"><NuxtLink to="/">Fumble</NuxtLink></li>
-        <li><NuxtLink to="/">Home</NuxtLink></li>
-        <li><NuxtLink to="/signup">Signup</NuxtLink></li>
-        <li><NuxtLink to="/login">Login</NuxtLink></li>
-        <li><NuxtLink to="/profile">Profile</NuxtLink></li>
+        <li class=""><NuxtLink to="/">Home</NuxtLink></li>
+        <li class=""><NuxtLink to="/signup">Signup</NuxtLink></li>
+        <li class=""><NuxtLink to="/login">Login</NuxtLink></li>
+        <li class=""><NuxtLink to="/profile">Profile</NuxtLink></li>
       </ul>
     </header>
 
