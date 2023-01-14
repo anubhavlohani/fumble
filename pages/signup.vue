@@ -142,7 +142,7 @@ watch(password, (newValue) => {
 async function signUp () {
   let processServerResponse = async (res) => {
     if (res.ok) {
-      navigateTo('/login')
+      return navigateTo('/login')
     } else {
       const resData = await res.json()
       alert(resData.detail)

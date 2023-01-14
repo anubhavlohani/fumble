@@ -30,13 +30,13 @@ const { apiURL } = useRuntimeConfig()
 onMounted(() => {
   let processServerResponse = (res) => {
     if (!res.ok) {
-      navigateTo('/login')
+      return navigateTo('/login')
     }
   }
 
   if (localStorage.getItem('access_token') === null) {
     alert('Session expired, please login again.')
-    navigateTo('/login')
+    return navigateTo('/login')
   }
   fetch(`${apiURL}/verify-token`, {
     method: 'GET',
@@ -90,7 +90,7 @@ function createStory () {
     const resData = await res.json()
     if (res.ok) {
       alert('Successfully created your story')
-      navigateTo('/')
+      return navigateTo('/')
     } else {
       alert(resData.detail)
     }

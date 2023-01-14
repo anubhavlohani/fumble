@@ -108,7 +108,7 @@ async function login () {
     const resData = await res.json()
     if (res.ok) {
       localStorage.setItem('access_token', resData.access_token)
-      navigateTo('/')
+      return navigateTo('/')
     } else {
       alert(resData.detail)
     }
