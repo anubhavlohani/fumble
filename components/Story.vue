@@ -11,7 +11,7 @@
     </div>
     
     <!-- Song details -->
-    <div class="py-2 px-2 rounded-t-lg bg-black">
+    <div class="py-4 px-2 rounded-t-lg bg-black">
       <div class="text-lg">
         {{ story.track.name }}
       </div>
