@@ -9,7 +9,7 @@
       <label class="block mb-1 text-left" for="name">Search song:</label>
       <div class="flex flex-row">
         <input v-model="query" :class="{ 'rounded-bl': searchResults.length === 0 }" class="w-full py-1 px-3 shadow appearance-none border rounded-tl text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Pray for me" required>
-        <button @click.prevent="searchSpotify" type="submit" :class="{ 'rounded-br': searchResults.length === 0 }" class="py-1 px-2 shadow appearance-none text-center text-base rounded-tr hover:bg-rose-700 active:bg-rose-800">
+        <button @click.prevent="searchSpotify" type="submit" :class="{ 'rounded-br': searchResults.length === 0 }" class="py-1 px-2 shadow appearance-none text-center text-base rounded-tr hover:bg-black active:bg-gray-700">
           🔎
         </button>
       </div>
