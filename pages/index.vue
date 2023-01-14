@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div v-if="!pending">
+    <div v-if="pending">
+      <Spinner />
+    </div>
+    <div v-else>
       <div v-for="story in data.stories" :key="story">
         <Story :story="story"/>
       </div>
-    </div>
-    <div v-else>
-      <h1>Loading Data</h1>
     </div>
   </div>
 </template>
