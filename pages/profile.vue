@@ -26,18 +26,17 @@
 <script setup>
 const { apiURL } = useRuntimeConfig()
 
-// check if token is valid
+// on page load: check if token is valid
 onMounted(() => {
   let processServerResponse = (res) => {
     if (!res.ok) {
-      alert(res.statusText)
-      navigateTo('/login')
+      return navigateTo('/login')
     }
   }
 
   if (localStorage.getItem('access_token') === null) {
     alert('Session expired, please login again.')
-    navigateTo('/login')
+    return navigateTo('/login')
   }
   fetch(`${apiURL}/verify-token`, {
     method: 'GET',
@@ -91,7 +90,7 @@ function createStory () {
     const resData = await res.json()
     if (res.ok) {
       alert('Successfully created your story')
-      navigateTo('/profile')
+      return navigateTo('/')
     } else {
       alert(resData.detail)
     }
