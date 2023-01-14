@@ -26,11 +26,10 @@
 <script setup>
 const { apiURL } = useRuntimeConfig()
 
-// check if token is valid
+// on page load: check if token is valid
 onMounted(() => {
   let processServerResponse = (res) => {
     if (!res.ok) {
-      alert(res.statusText)
       navigateTo('/login')
     }
   }
