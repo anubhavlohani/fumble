@@ -4,7 +4,9 @@
       <Spinner />
     </div>
     <div v-else>
-      <Stories :stories="data.stories" />
+      <div v-for="story in data.stories" :key="story">
+        <Story :story="story"/>
+      </div>
     </div>
   </div>
 </template>
