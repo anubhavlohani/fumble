@@ -15,20 +15,4 @@ export const useCurrentStoryStore = defineStore('currentStory', () => {
   }
 
   return { story, playingPreview, getPreviewAudio }
-
-  // function togglePreview () {
-  //   if (story.track.preview_url) {
-  //     if (audio.value) {
-  //       if (audio.value.paused) {
-  //         audio.value.play()
-  //       } else {
-  //         audio.value.pause()
-  //       }
-  //     } else {
-  //       audio.value = new Audio(story.track.preview_url)
-  //       audio.value.volume = 0.4
-  //       audio.value.play()
-  //     }
-  //   }
-  // }
 })
