@@ -159,6 +159,7 @@ async function signUp () {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      "ngrok-skip-browser-warning": true
     },
     body: JSON.stringify(userData),
   }).then(res => processServerResponse(res)).catch(error => alert(error))

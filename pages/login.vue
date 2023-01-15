@@ -119,6 +119,9 @@ async function login () {
   userData.append('password', password.value)
   fetch(`${apiURL}/login`, {
     method: 'POST',
+    headers: {
+      "ngrok-skip-browser-warning": true
+    },
     body: userData
   }).then(res => processServerResponse(res)).catch(error => alert(error))
 }

@@ -42,6 +42,7 @@ onMounted(() => {
     method: 'GET',
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+      "ngrok-skip-browser-warning": true
     }
   }).then(res => processServerResponse(res)).catch(error => alert(error))
 })
@@ -76,6 +77,7 @@ function searchSpotify () {
     method: 'GET',
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+      "ngrok-skip-browser-warning": true
     }
   }).then(res => processServerResponse(res)).catch(error => alert(error))
 }
@@ -104,7 +106,8 @@ function createStory () {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      "ngrok-skip-browser-warning": true
     },
     body: JSON.stringify(storyData)
   }).then(res => processServerResponse(res)).catch(error => alert(error))

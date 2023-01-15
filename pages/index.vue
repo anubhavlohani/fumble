@@ -30,11 +30,16 @@ onMounted(() => {
     method: 'GET',
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+      "ngrok-skip-browser-warning": true
     }
   }).then(res => processServerResponse(res)).catch(error => alert(error))
 })
 
-const { pending, data } = useAsyncData('stories', () => $fetch(`${apiURL}/all-stories`))
+const { pending, data } = useAsyncData('stories', () => $fetch(`${apiURL}/all-stories`, {
+  headers: {
+    "ngrok-skip-browser-warning": true
+  }
+}))
 </script>
 
 <style scoped>
