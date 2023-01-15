@@ -1,10 +1,10 @@
 <template>
-  <div class="my-12 mx-auto flex flex-col text-center w-full max-w-md rounded-lg bg-zinc-100 text-white">
+  <div class="my-12 mx-auto w-10/12 md:w-full max-w-md flex flex-col text-center rounded-lg bg-zinc-100 text-white">
     <!-- Album details -->
-    <div class="py-4 px-4 mx-auto">
+    <div class="py-4 px-4 mx-auto w-10/12">
       <div class="gap-y-4 flex flex-col">
         <img :src="story.track.album.images[1]" :alt="`${story.track.album.name} cover art`" class="rounded-lg">
-        <div class="text-lg text-black">
+        <div class="md:text-lg text-black">
           {{ story.track.album.name }}
         </div>
       </div>
@@ -16,10 +16,9 @@
         {{ story.track.name }}
       </div>
       <div class="py-2 gap-x-2 flex flex-row justify-center items-center">
-        By:
         <div class="gap-x-1 flex flex-row justify-center items-center">
           <div>
-            <img :src="story.track.artists[0].images[2]" :alt="`${story.track.artists[0].name} picture`" class="w-8 block rounded-full">
+            <img :src="story.track.artists[0].images[2]" :alt="`${story.track.artists[0].name} picture`" class="w-6 md:w-8 block rounded-full">
           </div>
           <div>
             {{ story.track.artists[0].name }}
@@ -30,7 +29,7 @@
         Feat:
         <div v-for="feature in story.track.artists.slice(1,)" :key="feature" class="gap-x-1 flex flex-row justify-center items-center">
           <div>
-            <img :src="feature.images[2]" :alt="`${feature.name} picture`" class="w-8 block rounded-full">
+            <img :src="feature.images[2]" :alt="`${feature.name} picture`" class="w-6 md:w-8 block rounded-full">
           </div>
           <div>
             {{ feature.name }}
