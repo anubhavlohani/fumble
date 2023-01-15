@@ -3,7 +3,7 @@
     <!-- Album details -->
     <div class="py-4 px-4 mx-auto w-10/12">
       <div class="gap-y-4 flex flex-col">
-        <img :src="story.track.album.images[1]" :alt="`${story.track.album.name} cover art`" class="rounded-lg">
+        <img @click="togglePreview()" :src="story.track.album.images[1]" :alt="`${story.track.album.name} cover art`" class="rounded-lg">
         <div class="md:text-lg text-black">
           {{ story.track.album.name }}
         </div>
@@ -52,4 +52,21 @@
 
 <script setup>
 const { story } = defineProps(['story'])
+const audio = ref(null)
+
+function togglePreview () {
+  if (story.track.preview_url) {
+    if (audio.value) {
+      if (audio.value.paused) {
+        audio.value.play()
+      } else {
+        audio.value.pause()
+      }
+    } else {
+      audio.value = new Audio(story.track.preview_url)
+      audio.value.volume = 0.4
+      audio.value.play()
+    }
+  }
+}
 </script>
