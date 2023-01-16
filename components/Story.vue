@@ -3,7 +3,7 @@
     <!-- Album details -->
     <div class="py-4 px-4 mx-auto w-10/12">
       <div class="gap-y-4 flex flex-col">
-        <img :src="story.track.album.images[1]" :alt="`${story.track.album.name} cover art`" @click="$emit('updateCurrentStory', story)" class="rounded-lg">
+        <img :src="story.track.album.images[1]" :alt="`${story.track.album.name} cover art`" @click="story.track.preview_url ? $emit('updateCurrentStory', story) : {}" class="rounded-lg">
         <div class="md:text-lg text-black">
           {{ story.track.album.name }}
         </div>
