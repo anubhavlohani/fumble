@@ -27,7 +27,7 @@
       <button type="submit" class="block mx-auto py-2 px-4 text-center text-lg rounded text-white bg-black hover:bg-gray-700 active:bg-gray-800">
         Login
       </button>
-      <p class="pt-4 text-base text-center hover:text-blue-800">
+      <p class="pt-2 text-base text-center hover:text-blue-800">
         <a href="/signup">Not a user? <i>SignUp</i> instead</a>
       </p>
       <p v-if="usernameErrors.length > 0 || passwordErrors.length > 0">
