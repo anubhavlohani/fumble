@@ -5,15 +5,13 @@
     </div>
     <div v-else>
       <div v-for="story in data.stories" :key="story">
-        <Story :story="story" @updateCurrentStory="updateCurrentStory"/>
+        <Story :story="story" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { useCurrentStoryStore } from '~~/store/story';
-
 const { apiURL } = useRuntimeConfig()
 
 onMounted(() => {
@@ -42,29 +40,6 @@ const { pending, data } = useAsyncData('stories', () => $fetch(`${apiURL}/all-st
     "ngrok-skip-browser-warning": true
   }
 }))
-
-const currentStory = useCurrentStoryStore()
-const previewAudio = ref(null)
-
-function updateCurrentStory (story) {
-  if (currentStory.story === null || currentStory.story.track.id !== story.track.id) {
-    if (previewAudio.value) {
-      previewAudio.value.pause()
-    }
-    currentStory.story = story
-    currentStory.playingPreview = true
-    previewAudio.value = currentStory.getPreviewAudio()
-    previewAudio.value.play()
-  } else {
-    if (currentStory.playingPreview) {
-      currentStory.playingPreview = false
-      previewAudio.value.pause()
-    } else {
-      currentStory.playingPreview = true
-      previewAudio.value.play()
-    }
-  }
-}
 </script>
 
 <style scoped>
