@@ -7,7 +7,9 @@
           <img :src="story.track.album.images[1]" :alt="`${story.track.album.name} cover art`" class="mx-auto rounded-lg transition ease-in-out hover:translate-x-1 hover:-translate-y-1 hover:opacity-80">
         </a>
         <div class="md:text-lg text-black">
-          {{ story.track.album.name }}
+          <a :href="story.track.spotify_url" target="_blank" rel="noopener noreferrer" class="hover:p-1 hover:bg-black hover:text-white">
+            {{ story.track.album.name }}
+          </a>
         </div>
       </div>
       <audio v-if="story.track.preview_url" :src="story.track.preview_url" class="w-full mx-auto" controls></audio>
@@ -20,23 +22,23 @@
       </div>
       <div class="py-2 gap-x-2 flex flex-row justify-center items-center">
         <div class="gap-x-1 flex flex-row justify-center items-center">
-          <div>
+          <a :href="story.track.artists[0].spotify_url" target="_blank" rel="noopener noreferrer" class="hover:opacity-80">
             <img :src="story.track.artists[0].images[2]" :alt="`${story.track.artists[0].name} picture`" class="w-6 md:w-8 block rounded-full">
-          </div>
-          <div>
+          </a>
+          <a :href="story.track.artists[0].spotify_url" target="_blank" rel="noopener noreferrer" class="hover:bg-white hover:text-black">
             {{ story.track.artists[0].name }}
-          </div>
+          </a>
         </div>
       </div>
       <div v-if="story.track.artists.length > 1" class="gap-x-2 flex flex-row flex-wrap justify-center items-center">
         Feat:
         <div v-for="feature in story.track.artists.slice(1,)" :key="feature" class="gap-x-1 flex flex-row justify-center items-center">
-          <div>
+          <a :href="story.track.artists[0].spotify_url" target="_blank" rel="noopener noreferrer" class="hover:opacity-80">
             <img :src="feature.images[2]" :alt="`${feature.name} picture`" class="w-6 md:w-8 block rounded-full">
-          </div>
-          <div>
+          </a>
+          <a :href="story.track.artists[0].spotify_url" target="_blank" rel="noopener noreferrer" class="hover:bg-white hover:text-black">
             {{ feature.name }}
-          </div>
+          </a>
         </div>
       </div>
     </div>
