@@ -30,7 +30,7 @@ const { apiURL } = useRuntimeConfig()
 const currentUser = useUserStore()
 
 // on page load: check if token is valid
-onMounted(() => {
+onBeforeMount(() => {
   let processServerResponse = async (res) => {
     if (res.ok) {
       const resData = await res.json()

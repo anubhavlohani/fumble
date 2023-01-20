@@ -17,7 +17,7 @@ import { useUserStore } from '~~/store/user';
 const { apiURL } = useRuntimeConfig()
 const currentUser = useUserStore()
 
-onMounted(() => {
+onBeforeMount(() => {
   // verify access token
   let processServerResponse = async (res) => {
     if (res.ok) {
