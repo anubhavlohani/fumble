@@ -12,12 +12,18 @@
 </template>
 
 <script setup>
+import { useUserStore } from '~~/store/user';
+
 const { apiURL } = useRuntimeConfig()
+const currentUser = useUserStore()
 
 onMounted(() => {
   // verify access token
-  let processServerResponse = (res) => {
-    if (!res.ok) {
+  let processServerResponse = async (res) => {
+    if (res.ok) {
+      const resData = await res.json()
+      currentUser.user = resData.user_details
+    } else {
       return navigateTo('/login')
     }
   }
