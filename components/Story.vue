@@ -74,8 +74,8 @@ const currentUser = useUserStore()
 const justLiked = ref(false)
 
 function likeStory () {
-  story.liked = !story.liked
-  justLiked.value = !justLiked.value
+  story.liked = true
+  justLiked.value = true
   
   let processServerResponse = async (res) => {
     if (!res.ok) {
@@ -104,8 +104,8 @@ function likeStory () {
 }
 
 function unlikeStory () {
-  story.liked = !story.liked
-  justLiked.value = !justLiked.value
+  story.liked = false
+  justLiked.value = false
   
   let processServerResponse = async (res) => {
     if (!res.ok) {
@@ -136,7 +136,7 @@ function unlikeStory () {
 
 <style scoped>
 .liked {
-  animation: pulse 0.7s ease-in-out 0s 1 normal none;
+  animation: pulse 0.3s ease-in-out 0s 1 normal none;
 }
 @keyframes pulse {
   0% {
