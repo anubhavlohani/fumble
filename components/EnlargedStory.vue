@@ -19,28 +19,14 @@
           </div>
 
           <!-- Main Artist -->
-          <div class="flex flex-col items-center justify-center gap-3">
-            <a :href="story.track.artists[0].spotify_url" target="_blank" rel="noopener noreferrer" class="hover:opacity-80">
-              <img :src="story.track.artists[0].images[2]" :alt="`${story.track.artists[0].name} picture`" class="w-6 md:w-20 block rounded-full">
-            </a>
-            <a :href="story.track.artists[0].spotify_url" target="_blank" rel="noopener noreferrer" class="hover:bg-white hover:text-black">
-              {{ story.track.artists[0].name }}
-            </a>
-          </div>
+          <Artist :artist="story.track.artists[0]" />
 
           <!-- Featured Artists -->
           <div v-if="story.track.artists.length > 1">
           <p class="pb-2">Feat:</p>
           <div class="flex overflow-x-auto">
             <div v-for="feature in story.track.artists.slice(1,)" :key="feature" class="flex-none py-6 px-3 first:pl-6 last:pr-6">
-              <div class="flex flex-col items-center justify-center gap-3">
-                <a :href="story.track.artists[0].spotify_url" target="_blank" rel="noopener noreferrer" class="hover:opacity-80">
-                  <img :src="feature.images[2]" :alt="`${feature.name} picture`" class="w-6 md:w-20 block rounded-full">
-                </a>
-                <a :href="story.track.artists[0].spotify_url" target="_blank" rel="noopener noreferrer" class="hover:bg-white hover:text-black">
-                  {{ feature.name }}
-                </a>
-              </div>
+              <Artist :artist="feature" />
             </div>
           </div>
         </div>
