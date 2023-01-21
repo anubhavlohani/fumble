@@ -8,6 +8,8 @@
       </button>
       
       <div class="mx-auto flex flex-row justify-center">
+        
+        <!-- Song Details -->
         <div class="py-8 px-8 w-1/3 flex flex-col gap-y-4 bg-black text-white text-center">
           <a :href="story.track.album.spotify_url" target="_blank" rel="noopener noreferrer" class="w-2/3 mx-auto">
             <img :src="story.track.album.images[0]" :alt="`${story.track.album.name} cover art`" class="rounded-lg transition ease-in-out hover:translate-x-1 hover:-translate-y-1 hover:opacity-80">
@@ -32,10 +34,14 @@
           </div>
         </div>
 
+        <!-- Story Details -->
+        <div class="py-4 px-4 w-1/4 flex flex-col gap-y-4 bg-white">
+          <div class="font-medium">{{ story.username }}</div>
+          <hr>
 
+          <!-- Idhar comments ayenge -->
 
-        <div class="md:text-lg bg-white">
-          {{ story.track.album.name }}
+          <StoryActions :story="story" />
         </div>
       </div>
     </div>
