@@ -19,17 +19,17 @@
           </div>
 
           <!-- Main Artist -->
-          <Artist :artist="story.track.artists[0]" />
+          <Artist :artist="story.track.artists[0]" :enlarged="true" />
 
           <!-- Featured Artists -->
           <div v-if="story.track.artists.length > 1">
-          <p class="pb-2">Feat:</p>
-          <div class="flex overflow-x-auto">
-            <div v-for="feature in story.track.artists.slice(1,)" :key="feature" class="flex-none py-6 px-3 first:pl-6 last:pr-6">
-              <Artist :artist="feature" />
+            <p class="text-lg">Feat:</p>
+            <div class="flex overflow-x-auto">
+              <div v-for="feature in story.track.artists.slice(1,)" :key="feature" class="flex-none py-6 px-3 first:pl-6 last:pr-6">
+                <Artist :artist="feature" :enlarged="true" />
+              </div>
             </div>
           </div>
-        </div>
         </div>
 
 

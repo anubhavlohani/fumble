@@ -27,7 +27,7 @@
       <!-- Featured Artists -->
       <div v-if="story.track.artists.length > 1">
         <p class="text-xl">Feat:</p>
-        <div class="flex justify-center flex-wrap">
+        <div class="flex overflow-x-auto">
           <div v-for="feature in story.track.artists.slice(1,)" :key="feature" class="flex-none p-2 first:pl-6 last:pr-6">
             <Artist :artist="feature" />
           </div>
@@ -137,6 +137,7 @@ function unlikeStory () {
 .liked {
   animation: pulse 0.3s ease-in-out 0s 1 normal none;
 }
+
 @keyframes pulse {
   0% {
     transform: scale(0.5);
@@ -147,5 +148,21 @@ function unlikeStory () {
   100% {
     transform: scale(1);
   }
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2b2b2b #000000;
+}
+
+::-webkit-scrollbar {
+  background: #000000;
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2b2b2b;
+  border-radius: 20px;
+  border: 4px solid #000000;
 }
 </style>
