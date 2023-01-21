@@ -37,7 +37,7 @@
     
     <!-- Story deatils -->
     <div class="py-2 px-4 text-left rounded-b-lg bg-black">
-      <StoryActions :story="story" @toggleEnlarged="showEnlarged = true" />
+      <StoryActions :story="story" :bgColor="'black'" @toggleEnlarged="showEnlarged = true" />
       
       <div class="font-semibold">
         {{ story.username }}
