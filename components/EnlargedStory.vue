@@ -39,10 +39,15 @@
           <div class="font-medium">{{ story.username }}</div>
           <hr>
 
-          <!-- Idhar comments ayenge -->
+          <!-- Comments -->
+          <div v-for="comment in story.comments" :key="comment">
+            <div class="flex flex-row gap-x-1">
+              <strong>{{ comment.username }}</strong>
+              {{ comment.content }}
+            </div>
+          </div>
 
           <StoryActions :story="story" />
-          <hr>
           
           <!-- Add comment -->
           <form action="post" @submit.prevent="createComment">
@@ -59,7 +64,11 @@
 </template>
 
 <script setup>
+import { useUserStore } from '~~/store/user';
+
 const { story } = defineProps(['story'])
+const { apiURL } = useRuntimeConfig()
+const currentUser = useUserStore()
 const comment = ref('')
 
 watch(comment, (newValue) => {
@@ -70,8 +79,59 @@ watch(comment, (newValue) => {
   }
 })
 
+function getComments () {
+  let processServerResponse = async (res) => {
+    if (res.ok) {
+      const resData = await res.json()
+      story.comments = resData.comments
+    } else {
+      return navigateTo('/login')
+    }
+  }
+
+  if (localStorage.getItem('access_token') === null) {
+    alert('Session expired, please login again.')
+    return navigateTo('/login')
+  }
+
+  fetch(`${apiURL}/story-comments?story_id=${story.id}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+      "ngrok-skip-browser-warning": true
+    }
+  }).then(res => processServerResponse(res)).catch(error => alert(error))
+}
+
 function createComment () {
-  return null
+  let processServerResponse = async (res) => {
+    if (res.ok) {
+      comment.value = ''
+      getComments()
+    } else {
+      return navigateTo('/login')
+    }
+  }
+
+  if (localStorage.getItem('access_token') === null) {
+    alert('Session expired, please login again.')
+    return navigateTo('/login')
+  }
+
+  const commentData = {
+    content: comment.value.trim(),
+    user_id: currentUser.user.id,
+    story_id: story.id
+  }
+  fetch(`${apiURL}/post-comment`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+      'Content-Type': 'application/json',
+      "ngrok-skip-browser-warning": true
+    },
+    body: JSON.stringify(commentData)
+  }).then(res => processServerResponse(res)).catch(error => alert(error))
 }
 </script>
 
