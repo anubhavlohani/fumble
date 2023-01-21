@@ -36,19 +36,26 @@
 
         <!-- Story Details -->
         <div class="py-4 px-4 w-1/4 flex flex-col gap-y-4 bg-white">
-          <div class="font-medium">{{ story.username }}</div>
+          <div class="flex flex-row gap-x-2">
+            <div class="font-medium">{{ story.username }}</div>
+            {{ story.caption }}
+          </div>
+          
           <hr>
 
           <!-- Comments -->
-          <div v-for="comment in story.comments" :key="comment">
-            <div class="flex flex-row gap-x-1">
-              <strong>{{ comment.username }}</strong>
-              {{ comment.content }}
+          <div class="grow flex flex-col gap-y-1">
+            <div v-for="comment in story.comments" :key="comment">
+              <div class="flex flex-row gap-x-2">
+                <div class="font-medium">{{ comment.username }}</div>
+                {{ comment.content }}
+              </div>
             </div>
           </div>
 
+          <hr>
+
           <StoryActions :story="story" />
-          
           <!-- Add comment -->
           <form action="post" @submit.prevent="createComment">
             <div class="flex flex-row justify-between">
