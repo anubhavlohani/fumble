@@ -42,6 +42,16 @@
           <!-- Idhar comments ayenge -->
 
           <StoryActions :story="story" />
+          <hr>
+          
+          <!-- Add comment -->
+          <form action="post" @submit.prevent="createComment">
+            <div class="flex flex-row justify-between">
+              <input v-model="comment" type="text" placeholder="Add a comment...">
+              <p v-if="comment === ''" class="text-blue-500 opacity-50 font-medium">Post</p>
+              <button type="submit" v-else class="text-blue-500 font-medium">Post</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -50,6 +60,19 @@
 
 <script setup>
 const { story } = defineProps(['story'])
+const comment = ref('')
+
+watch(comment, (newValue) => {
+  if (newValue.trim() === '') {
+    comment.value = ''
+  } else {
+    comment.value = newValue.trimStart()
+  }
+})
+
+function createComment () {
+  return null
+}
 </script>
 
 <style scoped>
