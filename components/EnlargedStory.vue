@@ -47,7 +47,7 @@
           <div class="flex flex-col gap-y-1 flex-grow h-32 flex-nowrap overflow-y-auto light-scrollbar">
             <Spinner v-if="!fetchedComments" />
             <div>
-              <div v-for="comment in comments" :key="comment">
+              <div v-for="comment in storyComments" :key="comment">
                 <div class="flex flex-row gap-x-2">
                   <div class="font-medium">{{ comment.username }}</div>
                   {{ comment.content }}
@@ -79,6 +79,7 @@ import { useUserStore } from '~~/store/user';
 const { story, comments, fetchedComments } = defineProps(['story', 'comments', 'fetchedComments'])
 const { apiURL } = useRuntimeConfig()
 const currentUser = useUserStore()
+const storyComments = ref(comments)
 const comment = ref('')
 
 watch(comment, (newValue) => {
@@ -93,7 +94,7 @@ function getComments () {
   let processServerResponse = async (res) => {
     if (res.ok) {
       const resData = await res.json()
-      story.comments = resData.comments
+      storyComments.value = resData.comments
     } else {
       return navigateTo('/login')
     }
@@ -117,29 +118,32 @@ function createComment () {
   let processServerResponse = async (res) => {
     if (res.ok) {
       comment.value = ''
+      getComments()
     } else {
       return navigateTo('/login')
     }
   }
 
-  if (localStorage.getItem('access_token') === null) {
-    alert('Session expired, please login again.')
-    return navigateTo('/login')
-  }
+  if (comment.value !== '') {
+    if (localStorage.getItem('access_token') === null) {
+      alert('Session expired, please login again.')
+      return navigateTo('/login')
+    }
 
-  const commentData = {
-    content: comment.value.trim(),
-    user_id: currentUser.user.id,
-    story_id: story.id
+    const commentData = {
+      content: comment.value.trim(),
+      user_id: currentUser.user.id,
+      story_id: story.id
+    }
+    fetch(`${apiURL}/post-comment`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+        'Content-Type': 'application/json',
+        "ngrok-skip-browser-warning": true
+      },
+      body: JSON.stringify(commentData)
+    }).then(res => processServerResponse(res)).catch(error => alert(error))
   }
-  fetch(`${apiURL}/post-comment`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
-      'Content-Type': 'application/json',
-      "ngrok-skip-browser-warning": true
-    },
-    body: JSON.stringify(commentData)
-  }).then(res => processServerResponse(res)).catch(error => alert(error))
 }
 </script>
