@@ -27,7 +27,7 @@
       <!-- Featured Artists -->
       <div v-if="story.track.artists.length > 1">
         <p class="text-xl">Feat:</p>
-        <div class="flex overflow-x-auto">
+        <div class="flex overflow-x-auto dark-scrollbar">
           <div v-for="feature in story.track.artists.slice(1,)" :key="feature" class="flex-none p-2 first:pl-6 last:pr-6">
             <Artist :artist="feature" />
           </div>
@@ -55,21 +55,3 @@
 const { story } = defineProps(['story'])
 const showEnlarged = ref(false)
 </script>
-
-<style scoped>
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #2b2b2b #000000;
-}
-
-::-webkit-scrollbar {
-  background: #000000;
-  width: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #2b2b2b;
-  border-radius: 20px;
-  border: 4px solid #000000;
-}
-</style>
