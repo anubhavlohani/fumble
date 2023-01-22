@@ -45,10 +45,13 @@
 
           <!-- Comments -->
           <div class="flex flex-col gap-y-1 flex-grow h-32 flex-nowrap overflow-y-auto light-scrollbar">
-            <div v-for="comment in story.comments" :key="comment">
-              <div class="flex flex-row gap-x-2">
-                <div class="font-medium">{{ comment.username }}</div>
-                {{ comment.content }}
+            <Spinner v-if="!fetchedComments" />
+            <div>
+              <div v-for="comment in comments" :key="comment">
+                <div class="flex flex-row gap-x-2">
+                  <div class="font-medium">{{ comment.username }}</div>
+                  {{ comment.content }}
+                </div>
               </div>
             </div>
           </div>
@@ -73,7 +76,7 @@
 <script setup>
 import { useUserStore } from '~~/store/user';
 
-const { story } = defineProps(['story'])
+const { story, comments, fetchedComments } = defineProps(['story', 'comments', 'fetchedComments'])
 const { apiURL } = useRuntimeConfig()
 const currentUser = useUserStore()
 const comment = ref('')
@@ -114,7 +117,6 @@ function createComment () {
   let processServerResponse = async (res) => {
     if (res.ok) {
       comment.value = ''
-      getComments()
     } else {
       return navigateTo('/login')
     }
