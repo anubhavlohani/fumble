@@ -59,7 +59,7 @@
           <!-- Add comment -->
           <form action="post" @submit.prevent="createComment">
             <div class="flex flex-row justify-between">
-              <input v-model="comment" type="text" class="outline-none" placeholder="Add a comment...">
+              <input v-model="comment" type="text" class="w-5/6 outline-none" placeholder="Add a comment...">
               <p v-if="comment === ''" class="text-blue-500 opacity-50 font-medium">Post</p>
               <button type="submit" v-else class="text-blue-500 font-medium">Post</button>
             </div>
