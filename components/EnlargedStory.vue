@@ -7,14 +7,14 @@
         </svg>
       </button>
       
-      <div class="mx-auto flex flex-row justify-center">
+      <div class="mx-auto flex flex-col md:flex-row justify-center">
         
         <!-- Song Details -->
-        <div class="py-8 px-8 w-1/3 flex flex-col gap-y-4 bg-black text-white text-center">
+        <div class="py-4 px-8 mx-auto w-5/6 md:py-8 md:mx-0 md:w-1/3 flex flex-col gap-y-2 md:gap-y-4 bg-black text-white text-center">
           <a :href="story.track.album.spotify_url" target="_blank" rel="noopener noreferrer" class="w-2/3 mx-auto">
             <img :src="story.track.album.images[0]" :alt="`${story.track.album.name} cover art`" class="rounded-lg transition ease-in-out hover:translate-x-1 hover:-translate-y-1 hover:opacity-80">
           </a>
-          <div class="text-lg">
+          <div class="md:text-lg">
             <a :href="story.track.spotify_url" target="_blank" rel="noopener noreferrer" class="hover:p-1 hover:bg-white hover:text-black">
               {{ story.track.name }}
             </a>
@@ -25,9 +25,9 @@
 
           <!-- Featured Artists -->
           <div v-if="story.track.artists.length > 1">
-            <p class="text-lg">Feat:</p>
-            <div class="flex overflow-x-auto">
-              <div v-for="feature in story.track.artists.slice(1,)" :key="feature" class="flex-none py-6 px-3 first:pl-6 last:pr-6">
+            <p class="md:text-lg">Feat:</p>
+            <div class="flex overflow-x-auto dark-scrollbar">
+              <div v-for="feature in story.track.artists.slice(1,)" :key="feature" class="flex-none py-3 md:py-6 px-3 first:pl-6 last:pr-6">
                 <Artist :artist="feature" :enlarged="true" />
               </div>
             </div>
@@ -35,7 +35,7 @@
         </div>
 
         <!-- Story Details -->
-        <div class="py-4 px-4 w-1/4 flex flex-col gap-y-4 bg-white">
+        <div class="py-2 px-4 mx-auto w-5/6 md:py-4 md:mx-0 md:w-1/4 flex flex-col gap-y-2 md:gap-y-4 bg-white">
           <div class="flex flex-row gap-x-2">
             <div class="font-medium">{{ story.username }}</div>
             {{ story.caption }}
@@ -44,7 +44,7 @@
           <hr>
 
           <!-- Comments -->
-          <div class="grow flex flex-col gap-y-1">
+          <div class="flex flex-col gap-y-1 flex-grow h-32 flex-nowrap overflow-y-auto light-scrollbar">
             <div v-for="comment in story.comments" :key="comment">
               <div class="flex flex-row gap-x-2">
                 <div class="font-medium">{{ comment.username }}</div>
@@ -141,21 +141,3 @@ function createComment () {
   }).then(res => processServerResponse(res)).catch(error => alert(error))
 }
 </script>
-
-<style scoped>
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #2b2b2b #000000;
-}
-
-::-webkit-scrollbar {
-  background: #000000;
-  width: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #2b2b2b;
-  border-radius: 20px;
-  border: 4px solid #000000;
-}
-</style>
