@@ -10,7 +10,7 @@
       <div class="mx-auto flex flex-col md:flex-row justify-center">
         
         <!-- Song Details -->
-        <div class="px-8 mx-auto w-5/6 md:py-8 md:mx-0 md:w-1/3 flex flex-col gap-y-2 md:gap-y-4 bg-black text-white text-center">
+        <div class="py-4 px-8 mx-auto w-5/6 md:py-8 md:mx-0 md:w-1/3 flex flex-col gap-y-2 md:gap-y-4 bg-black text-white text-center">
           <a :href="story.track.album.spotify_url" target="_blank" rel="noopener noreferrer" class="w-2/3 mx-auto">
             <img :src="story.track.album.images[0]" :alt="`${story.track.album.name} cover art`" class="rounded-lg transition ease-in-out hover:translate-x-1 hover:-translate-y-1 hover:opacity-80">
           </a>
@@ -27,7 +27,7 @@
           <div v-if="story.track.artists.length > 1">
             <p class="md:text-lg">Feat:</p>
             <div class="flex overflow-x-auto dark-scrollbar">
-              <div v-for="feature in story.track.artists.slice(1,)" :key="feature" class="flex-none py-3 md:py-6 px-3 first:pl-6 last:pr-6">
+              <div v-for="feature in story.track.artists.slice(1,)" :key="feature" class="flex-none py-2 md:py-6 px-3 first:pl-6 last:pr-6">
                 <Artist :artist="feature" :enlarged="true" />
               </div>
             </div>
