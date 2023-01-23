@@ -37,7 +37,7 @@
     
     <!-- Story deatils -->
     <div class="py-2 px-4 text-left rounded-b-lg bg-black">
-      <StoryActions :story="story" :fetchedComments="fetchedComments" :bgColor="'black'" @toggleEnlarged="enlargeStory" />     
+      <StoryActions :story="story" :bgColor="'black'" @toggleEnlarged="toggleEnlarged" />     
       <div class="font-semibold">
         {{ story.username }}
       </div>
@@ -47,38 +47,18 @@
     </div>
   </div>
 
-  <EnlargedStory v-if="showEnlarged" :story="story" :comments="comments" :fetchedComments="fetchedComments" @toggleEnlarged="showEnlarged = false" />
+  <EnlargedStory v-if="showEnlarged" :story="story" @toggleEnlarged="showEnlarged = false" />
 </template>
 
 <script setup>
+import { useCommentsStore } from '~~/store/comments';
+
 const { story } = defineProps(['story'])
-const { apiURL } = useRuntimeConfig()
-const comments = ref([])
-const fetchedComments = ref(false)
 const showEnlarged = ref(false)
+const storyComments = useCommentsStore()
 
-function enlargeStory () {
-  let processServerResponse = async (res) => {
-    if (res.ok) {
-      const resData = await res.json()
-      comments.value = resData.comments
-      fetchedComments.value = true
-    } else {
-      return navigateTo('/login')
-    }
-  }
-
-  if (localStorage.getItem('access_token') === null) {
-    alert('Session expired, please login again.')
-    return navigateTo('/login')
-  }
+function toggleEnlarged () {
   showEnlarged.value = true
-  fetch(`${apiURL}/story-comments?story_id=${story.id}`, {
-    method: 'GET',
-    headers: {
-      'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
-      "ngrok-skip-browser-warning": true
-    }
-  }).then(res => processServerResponse(res)).catch(error => alert(error))
+  storyComments.getComments(story.id, localStorage.getItem('access_token'))
 }
 </script>
