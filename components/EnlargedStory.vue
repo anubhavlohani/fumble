@@ -19,7 +19,6 @@
               {{ story.track.name }}
             </a>
           </div>
-          <audio v-if="story.track.preview_url" :src="story.track.preview_url" class="py-2 w-full md:w-2/3 mx-auto" controls></audio>
 
           <!-- Main Artist -->
           <Artist :artist="story.track.artists[0]" :enlarged="true" />
