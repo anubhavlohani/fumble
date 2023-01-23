@@ -1,6 +1,6 @@
 <template>
   <div class="fixed top-0 left-0 w-full h-full z-50 backdrop-brightness-50">
-    <div class="mt-16">
+    <div class="mt-4 md:mt-16">
       <button @click="$emit('toggleEnlarged')" class="absolute top-0 right-0 p-4">
         <svg class="h-6 w-6 text-white" stroke="currentColor" fill="none" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -10,7 +10,7 @@
       <div class="mx-auto flex flex-col md:flex-row justify-center">
         
         <!-- Song Details -->
-        <div class="py-4 px-8 mx-auto w-5/6 md:py-8 md:mx-0 md:w-1/3 flex flex-col gap-y-2 md:gap-y-4 bg-black text-white text-center">
+        <div class="px-8 mx-auto w-5/6 md:py-8 md:mx-0 md:w-1/3 flex flex-col gap-y-2 md:gap-y-4 bg-black text-white text-center">
           <a :href="story.track.album.spotify_url" target="_blank" rel="noopener noreferrer" class="w-2/3 mx-auto">
             <img :src="story.track.album.images[0]" :alt="`${story.track.album.name} cover art`" class="rounded-lg transition ease-in-out hover:translate-x-1 hover:-translate-y-1 hover:opacity-80">
           </a>
