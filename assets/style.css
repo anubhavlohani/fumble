@@ -1,0 +1,50 @@
+/* Default Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2b2b2b #FFFFFF;
+}
+
+::-webkit-scrollbar {
+  background: #FFFFFF;
+  width: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2b2b2b;
+  border-radius: 20px;
+  border: 4px solid #FFFFFF;
+}
+
+/* Dark Theme Scrollbar Thin */
+.dark-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #2b2b2b #000000;
+}
+
+.dark-scrollbar::-webkit-scrollbar {
+  background: #000000;
+  width: 10px;
+}
+
+.dark-scrollbar::-webkit-scrollbar-thumb {
+  background: #2b2b2b;
+  border-radius: 20px;
+  border: 4px solid #000000;
+}
+
+/* Light Scheme Scrollbar Thin */
+.light-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #2b2b2b #FFFFFF;
+}
+
+.light-scrollbar::-webkit-scrollbar {
+  background: #FFFFFF;
+  width: 20px;
+}
+
+.light-scrollbar::-webkit-scrollbar-thumb {
+  background: #2b2b2b;
+  border-radius: 10px;
+  border: 6px solid #FFFFFF;
+}

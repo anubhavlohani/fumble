@@ -4,6 +4,9 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt'
   ],
+  css: [
+    '@/assets/style.css'
+  ],
   runtimeConfig: {
     public: {
       apiURL: process.env.API_URL,

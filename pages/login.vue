@@ -39,8 +39,10 @@
 
 <script setup>
 import { ref, watch } from 'vue'
+import { useUserStore } from '~~/store/user';
 
 const { apiURL } = useRuntimeConfig()
+const currentUser = useUserStore()
 
 const username = ref('')
 const password = ref('')
@@ -110,6 +112,7 @@ async function login () {
   let processServerResponse = async (res) => {
     const resData = await res.json()
     if (res.ok) {
+      currentUser.user = resData.user_details
       localStorage.setItem('access_token', resData.access_token)
       return navigateTo('/')
     } else {

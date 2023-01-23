@@ -20,31 +20,24 @@
           {{ story.track.name }}
         </a>
       </div>
-      <div class="py-2 gap-x-2 flex flex-row justify-center items-center">
-        <div class="gap-x-1 flex flex-row justify-center items-center">
-          <a :href="story.track.artists[0].spotify_url" target="_blank" rel="noopener noreferrer" class="hover:opacity-80">
-            <img :src="story.track.artists[0].images[2]" :alt="`${story.track.artists[0].name} picture`" class="w-6 md:w-8 block rounded-full">
-          </a>
-          <a :href="story.track.artists[0].spotify_url" target="_blank" rel="noopener noreferrer" class="hover:bg-white hover:text-black">
-            {{ story.track.artists[0].name }}
-          </a>
-        </div>
-      </div>
-      <div v-if="story.track.artists.length > 1" class="gap-x-2 flex flex-row flex-wrap justify-center items-center">
-        Feat:
-        <div v-for="feature in story.track.artists.slice(1,)" :key="feature" class="gap-x-1 flex flex-row justify-center items-center">
-          <a :href="story.track.artists[0].spotify_url" target="_blank" rel="noopener noreferrer" class="hover:opacity-80">
-            <img :src="feature.images[2]" :alt="`${feature.name} picture`" class="w-6 md:w-8 block rounded-full">
-          </a>
-          <a :href="story.track.artists[0].spotify_url" target="_blank" rel="noopener noreferrer" class="hover:bg-white hover:text-black">
-            {{ feature.name }}
-          </a>
+      
+      <!-- Main Artist -->
+      <Artist :artist="story.track.artists[0]" class="py-2" />
+      
+      <!-- Featured Artists -->
+      <div v-if="story.track.artists.length > 1">
+        <p class="text-xl">Feat:</p>
+        <div class="flex overflow-x-auto dark-scrollbar">
+          <div v-for="feature in story.track.artists.slice(1,)" :key="feature" class="flex-none p-2 first:pl-6 last:pr-6">
+            <Artist :artist="feature" />
+          </div>
         </div>
       </div>
     </div>
     
     <!-- Story deatils -->
     <div class="py-2 px-4 text-left rounded-b-lg bg-black">
+      <StoryActions :story="story" :bgColor="'black'" @toggleEnlarged="toggleEnlarged" />     
       <div class="font-semibold">
         {{ story.username }}
       </div>
@@ -53,8 +46,19 @@
       </div>
     </div>
   </div>
+
+  <EnlargedStory v-if="showEnlarged" :story="story" @toggleEnlarged="showEnlarged = false" />
 </template>
 
 <script setup>
+import { useCommentsStore } from '~~/store/comments';
+
 const { story } = defineProps(['story'])
+const showEnlarged = ref(false)
+const storyComments = useCommentsStore()
+
+function toggleEnlarged () {
+  showEnlarged.value = true
+  storyComments.getComments(story.id, localStorage.getItem('access_token'))
+}
 </script>
