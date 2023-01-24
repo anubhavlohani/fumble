@@ -11,8 +11,6 @@
       </div>
       <ul class="pt-4 md:pt-0 flex flex-col space-y-0.5 md:flex-row md:items-center md:space-y-0 md:space-x-5 md:opacity-100 md:static top-[-100%]" :class="{ 'opacity-0': hideNavItems, 'absolute': hideNavItems }">
         <li @click="hideNavItems=true"><NuxtLink to="/">Home</NuxtLink></li>
-        <li @click="hideNavItems=true"><NuxtLink to="/signup">Signup</NuxtLink></li>
-        <li @click="hideNavItems=true"><NuxtLink to="/login">Login</NuxtLink></li>
         <li @click="hideNavItems=true"><NuxtLink to="/profile">Profile</NuxtLink></li>
       </ul>
     </nav>
