@@ -36,9 +36,12 @@
 
         <!-- Story Details -->
         <div class="py-2 px-4 mx-auto w-5/6 md:py-4 md:mx-0 md:w-1/4 flex flex-col gap-y-2 md:gap-y-4 bg-white">
-          <div class="flex flex-row gap-x-2">
-            <div class="font-medium">{{ story.username }}</div>
-            {{ story.caption }}
+          <div class="flex items-center justify-between">
+            <div class="flex flex-row gap-x-2">
+              <div class="font-medium">{{ story.username }}</div>
+              {{ story.caption }}
+            </div>
+            <MoreOptions />
           </div>
           
           <hr>
