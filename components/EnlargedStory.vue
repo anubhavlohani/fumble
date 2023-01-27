@@ -41,7 +41,7 @@
               <div class="font-medium">{{ story.username }}</div>
               {{ story.caption }}
             </div>
-            <MoreOptions :allowEdits="currentUser.user && currentUser.user.username === story.username" />
+            <MoreOptions :story="story" />
           </div>
           
           <hr>

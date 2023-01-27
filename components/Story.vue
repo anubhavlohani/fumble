@@ -1,7 +1,7 @@
 <template>
   <div class="my-12 mx-auto w-10/12 md:w-full max-w-md flex flex-col text-center rounded-lg bg-zinc-100 text-white">
     <div class="pt-2 px-4 flex justify-end">
-      <MoreOptions />
+      <MoreOptions :story="story" />
     </div>
 
     <!-- Album details -->

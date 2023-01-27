@@ -23,7 +23,7 @@
         </div>
         
         <div v-else class="flex flex-col justify-center gap-y-4">
-          <button @click="confirmDelete" class="w-full text-red-600">Delete</button>
+          <button v-if="story && currentUser.user.username === story.username" @click="confirmDelete" class="w-full text-red-600">Delete</button>
           <button @click="showOptions=false" class="w-full text-slate-600">Cancel</button>
         </div>
       </div>
@@ -32,9 +32,12 @@
 </template>
 
 <script setup>
-const { allowEdits } = defineProps(['allowEdits'])
-const showOptions = ref(false)
+import { useUserStore } from '~~/store/user';
 
+const { story } = defineProps(['story'])
+const { apiURL } = useRuntimeConfig()
+const currentUser = useUserStore()
+const showOptions = ref(false)
 const confirmation = ref(null)
 
 function confirmDelete () {
@@ -44,6 +47,25 @@ function confirmDelete () {
 }
 
 function deleteStory () {
-  return null
+  let processServerResponse = async (res) => {
+    if (res.ok) {
+      window.location.reload(true)
+    } else {
+      return navigateTo('/login')
+    }
+  }
+  
+  if (localStorage.getItem('access_token') === null) {
+    alert('Session expired, please login again.')
+    return navigateTo('/login')
+  }
+  
+  fetch(`${apiURL}/delete-story?story_id=${story.id}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+      "ngrok-skip-browser-warning": true
+    }
+  }).then(res => processServerResponse(res)).catch(error => alert(error))
 }
 </script>
