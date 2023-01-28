@@ -1,7 +1,11 @@
 <template>
   <div class="my-12 mx-auto w-10/12 md:w-full max-w-md flex flex-col text-center rounded-lg bg-zinc-100 text-white">
+    <div class="pt-2 px-4 flex justify-end">
+      <MoreOptions :story="story" />
+    </div>
+
     <!-- Album details -->
-    <div class="py-4 px-4 mx-auto w-10/12">
+    <div class="pb-4 px-4 mx-auto w-10/12">
       <div class="gap-y-4 flex flex-col">
         <a :href="story.track.album.spotify_url" target="_blank" rel="noopener noreferrer" class="w-11/12 mx-auto">
           <img :src="story.track.album.images[1]" :alt="`${story.track.album.name} cover art`" class="mx-auto rounded-lg transition ease-in-out hover:translate-x-1 hover:-translate-y-1 hover:opacity-80">
