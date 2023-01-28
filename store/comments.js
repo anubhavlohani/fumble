@@ -53,5 +53,23 @@ const fetchingComments = computed(() => comments.value === null ? true : false)
     }
   }
 
-  return { comments, fetchingComments, getComments, createComment }
+  function deleteComment (commentId, storyId, accessToken) {
+    let processServerResponse = async (res) => {
+      if (res.ok) {
+        getComments(storyId, accessToken)
+      } else {
+        return navigateTo('/login')
+      }
+    }
+    
+    fetch(`${apiURL}/delete-comment?comment_id=${commentId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        "ngrok-skip-browser-warning": true
+      }
+    }).then(res => processServerResponse(res)).catch(error => alert(error))
+  }
+
+  return { comments, fetchingComments, getComments, createComment, deleteComment }
 })
