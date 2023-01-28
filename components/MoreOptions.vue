@@ -24,7 +24,7 @@
           </div>
           <div v-else-if="comment">
             Are you sure you want to delete this comment?
-            <button @click="deleteComment" class="w-full text-red-600">Delete</button>
+            <button @click="emits('deleteComment')" class="w-full text-red-600">Delete</button>
           </div>
           
           <button @click="showOptions=false" class="w-full text-slate-600">Cancel</button>
@@ -44,6 +44,7 @@
 <script setup>
 import { useUserStore } from '~~/store/user';
 
+const emits = defineEmits(['deleteComment'])
 const { story, comment } = defineProps(['story', 'comment'])
 const { apiURL } = useRuntimeConfig()
 const currentUser = useUserStore()

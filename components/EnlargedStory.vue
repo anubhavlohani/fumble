@@ -55,7 +55,7 @@
                   <div class="font-medium">{{ comment.username }}</div>
                   <div class="grow">{{ comment.content }}</div>
                   <div class="options invisible">
-                    <MoreOptions />
+                    <MoreOptions :comment="comment" @deleteComment="handleCommentDelete(comment.id)" />
                   </div>
                 </div>
               </div>
@@ -97,9 +97,12 @@ watch(comment, (newValue) => {
 })
 
 function handleCommentPost () {
-  console.log(story.id)
   storyComments.createComment(comment.value, currentUser.user.id, story.id, localStorage.getItem('access_token'))
   comment.value = ''
+}
+
+function handleCommentDelete (commentId) {
+  storyComments.deleteComment(commentId, story.id, localStorage.getItem('access_token'))
 }
 </script>
 
