@@ -16,14 +16,24 @@
 
     <div class="fixed inset-0 flex items-center">
       <div class="py-4 px-4 mx-auto w-1/6 rounded-xl text-lg bg-white text-black">
+        <!-- Confirmation Message -->
         <div v-if="confirmation && confirmation.type === 'delete'" class="flex flex-col justify-center gap-y-4">
-          Are you sure you want to delete this story?
-          <button @click="deleteStory" class="w-full text-red-600">Delete</button>
+          <div v-if="story">
+            Are you sure you want to delete this story?
+            <button @click="deleteStory" class="w-full text-red-600">Delete</button>
+          </div>
+          <div v-else-if="comment">
+            Are you sure you want to delete this comment?
+            <button @click="deleteComment" class="w-full text-red-600">Delete</button>
+          </div>
+          
           <button @click="showOptions=false" class="w-full text-slate-600">Cancel</button>
         </div>
         
+        <!-- Story/Comment Options -->
         <div v-else class="flex flex-col justify-center gap-y-4">
-          <button v-if="story && currentUser.user.username === story.username" @click="confirmDelete" class="w-full text-red-600">Delete</button>
+          <button v-if="story && currentUser.user.username === story.username || comment && currentUser.user.username === comment.username" @click="confirmDelete" class="w-full text-red-600">Delete</button>
+          
           <button @click="showOptions=false" class="w-full text-slate-600">Cancel</button>
         </div>
       </div>
@@ -34,7 +44,7 @@
 <script setup>
 import { useUserStore } from '~~/store/user';
 
-const { story } = defineProps(['story'])
+const { story, comment } = defineProps(['story', 'comment'])
 const { apiURL } = useRuntimeConfig()
 const currentUser = useUserStore()
 const showOptions = ref(false)
