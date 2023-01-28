@@ -51,9 +51,12 @@
             <Spinner v-if="storyComments.fetchingComments" />
             <div>
               <div v-for="comment in storyComments.comments" :key="comment">
-                <div class="flex flex-row gap-x-2">
+                <div class="comment-parent flex flex-row gap-x-2">
                   <div class="font-medium">{{ comment.username }}</div>
-                  {{ comment.content }}
+                  <div class="grow">{{ comment.content }}</div>
+                  <div class="options invisible">
+                    <MoreOptions />
+                  </div>
                 </div>
               </div>
             </div>
@@ -99,3 +102,9 @@ function handleCommentPost () {
   comment.value = ''
 }
 </script>
+
+<style scoped>
+.comment-parent:hover .options {
+  visibility: visible;
+}
+</style>
