@@ -15,7 +15,7 @@
     </button>
 
     <div class="fixed inset-0 flex items-center">
-      <div class="py-4 px-4 mx-auto w-1/6 rounded-xl text-lg bg-white text-black">
+      <div class="py-4 px-4 mx-auto w-1/2 md:w-1/6 rounded-xl text-lg bg-white text-black">
         <!-- Confirmation Message -->
         <div v-if="confirmation && confirmation.type === 'delete'" class="flex flex-col justify-center gap-y-4">
           <div v-if="story">
